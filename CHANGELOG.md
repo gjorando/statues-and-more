@@ -1,5 +1,11 @@
 # Changelog
 
+## v1r
+
+* +Render of armor stuff on the Statue functional
+* The Statue can't be placed if there isn't at least three free blocks above it
+* First stable release
+
 ## v1a2
 
 * -Deleted a glass case around the statue for esthetic and technical issues

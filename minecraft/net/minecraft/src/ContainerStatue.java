@@ -9,10 +9,10 @@ public class ContainerStatue extends Container
     {
         inv = inventory;
         tile = testatue;
-        addSlot(new SlotArmorStatue(testatue, 0, 53, 8, 0));
-        addSlot(new SlotArmorStatue(testatue, 1, 53, 26, 1));
-        addSlot(new SlotArmorStatue(testatue, 2, 53, 44, 2));
-        addSlot(new SlotArmorStatue(testatue, 3, 53, 62, 3));
+        addSlot(new SlotArmor(null, testatue, 0, 53, 8, 0));
+        addSlot(new SlotArmor(null, testatue, 1, 53, 26, 1));
+        addSlot(new SlotArmor(null, testatue, 2, 53, 44, 2));
+        addSlot(new SlotArmor(null, testatue, 3, 53, 62, 3));
         
         for(int j = 0; j < 3; j++)
 		{

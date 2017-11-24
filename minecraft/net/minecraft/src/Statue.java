@@ -95,6 +95,18 @@ public class Statue extends BlockContainer
        return true;
    }
    
+   public boolean canPlaceBlockAt(World world, int i, int j, int k)
+   {
+	   if (world.getBlockId(i, j+1, k) == 0 && world.getBlockId(i, j+2, k) == 0)
+	   {
+		   return true;
+	   }
+	   else
+	   {
+		   return false;
+	   }
+   }
+   
    public void onBlockRemoval(World world, int i, int j, int k)
    {
        ModLoader.genericContainerRemoval(world, i, j, k);

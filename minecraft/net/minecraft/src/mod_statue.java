@@ -11,7 +11,7 @@ public class mod_statue extends BaseMod
 	
 	public String getVersion()
 	{
-		return "1a2";
+		return "1r";
 	}
 	
 	public void load()
@@ -24,9 +24,9 @@ public class mod_statue extends BaseMod
 
 		ModLoader.addRecipe(new ItemStack(itemStatue, 1), new Object[]
 		                {
-		            "PPP",
-		            "PSP",
-		            "PWP",
+		            "   ",
+		            " S ",
+		            " W ",
 		Character.valueOf('P'), Block.thinGlass, Character.valueOf('S'), Block.blockSteel, Character.valueOf('W'), Block.wood
 		                });
 	}

@@ -11,7 +11,7 @@
 
 package net.minecraft.src;
 
-public class Model_statue extends ModelBase
+public class Model_armor extends ModelBase
 {
 //fields
   ModelRenderer jambe_droite;
@@ -20,17 +20,15 @@ public class Model_statue extends ModelBase
   ModelRenderer bras_droit;
   ModelRenderer bras_gauche;
   ModelRenderer tete;
-  ModelRenderer slab;
 
-public Model_statue()
+public Model_armor()
 {
-    this(0.0F);
+	this(0.0F);
 }
-  
-public Model_statue(float par1)
+public Model_armor(float par1)
 {
   textureWidth = 64;
-  textureHeight = 64;
+  textureHeight = 32;
   
     jambe_droite = new ModelRenderer(this, 0, 16);
     jambe_droite.addBox(0F, 0F, 0F, 4, 12, 4, par1);
@@ -68,12 +66,6 @@ public Model_statue(float par1)
     tete.setTextureSize(64, 128);
     tete.mirror = true;
     setRotation(tete, 0F, 0F, 0F);
-    slab = new ModelRenderer(this, 0, 32);
-    slab.addBox(0F, 0F, 0F, 15, 8, 15, par1);
-    slab.setRotationPoint(-7.5F, 16F, -7.5F);
-    slab.setTextureSize(64, 128);
-    slab.mirror = true;
-    setRotation(slab, 0F, 0F, 0F);
 }
 
 public void renderModel(float f)
@@ -83,7 +75,6 @@ public void renderModel(float f)
       jambe_gauche.render(f);
       jambe_droite.render(f);
       corps.render(f);
-      slab.render(f);
       tete.render(f);
 }
 
@@ -97,7 +88,6 @@ public void render(Entity entity, float f, float f1, float f2, float f3, float f
   bras_droit.render(f5);
   bras_gauche.render(f5);
   tete.render(f5);
-  slab.render(f5);
 }
 
 private void setRotation(ModelRenderer model, float x, float y, float z)
