@@ -128,7 +128,7 @@ public class Statue extends BlockContainer
        }
        else if (testatue != null  && testatue.getButtonValue() != 0)
        {
-           ModLoader.openGUI(entityplayer, new GuiStatue(entityplayer.inventory, testatue));
+           ModLoader.openGUI(entityplayer, new GuiStatue(entityplayer.inventory, testatue, world, x, y, z));
        }
 
        return true;

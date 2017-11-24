@@ -17,7 +17,7 @@ public class mod_statue extends BaseMod
 	
 	public String getVersion()
 	{
-		return "2r3 skeleton update";
+		return "2r4";
 	}
 	
 	public void load()

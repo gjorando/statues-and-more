@@ -76,7 +76,7 @@ public class Render_statue extends TileEntitySpecialRenderer
                GL11.glRotatef(180F, 1.0F, 0F, 0.0F);
            }
            
-           for (int iFor = -1; iFor < 4; iFor++)
+           for (int iFor = -1; iFor <= 3; iFor++)
            {
                Model_statue modelstatue;
                Model_armor modelarmor;
@@ -177,6 +177,18 @@ public class Render_statue extends TileEntitySpecialRenderer
            }
            GL11.glPushMatrix();
            GL11.glPopMatrix();
+           FontRenderer fontrenderer = getFontRenderer();
+           int size = 11, pixel = 5*16;
+           float f2 = 0.7777777F;
+           float fact = (f2*0.01666667F);
+           String text = tileentity1.getTextField3();
+           GL11.glTranslatef(-0.5F, 1.2F, -0.503F);
+           GL11.glScalef(fact, fact, fact);
+           GL11.glNormal3f(0.0F, 0.0F, -1F * fact);
+           GL11.glDepthMask(false);
+        	   fontrenderer.drawString(text, (pixel - fontrenderer.getStringWidth(text)) / 2, 0, 0);
+           GL11.glDepthMask(true);
+           GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
            GL11.glPopMatrix();
            
         }

@@ -1,5 +1,6 @@
 package net.minecraft.src;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 public class GuiSculpt extends GuiScreen
@@ -60,6 +61,8 @@ public class GuiSculpt extends GuiScreen
        super.keyTyped(c, i);
         textfield.func_50037_a(c, i);
         textfield2.func_50037_a(c, i);
+        testatue.setTextField2(textfield2.getText());
+        testatue.setTextField1(textfield.getText());
     }
 	
 	public void drawScreen(int i, int j, float f)

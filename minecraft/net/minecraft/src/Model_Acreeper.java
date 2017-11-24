@@ -38,10 +38,10 @@ public class Model_Acreeper extends ModelBase
       tete.mirror = true;
       setRotation(tete, 0F, 0F, 0F);
       patte1 = new ModelRenderer(this, 0, 22);
+      patte1.mirror = true;
       patte1.addBox(0F, 0F, 0F, 4, 6, 4, par1);
       patte1.setRotationPoint(-4F, 10F, -6F);
       patte1.setTextureSize(64, 32);
-      patte1.mirror = true;
       setRotation(patte1, 0F, 0F, 0F);
       patte2 = new ModelRenderer(this, 0, 22);
       patte2.addBox(0F, 0F, 0F, 4, 6, 4, par1);
@@ -50,10 +50,10 @@ public class Model_Acreeper extends ModelBase
       patte2.mirror = true;
       setRotation(patte2, 0F, 0F, 0F);
       patte3 = new ModelRenderer(this, 0, 22);
+      patte3.mirror = true;
       patte3.addBox(0F, 0F, 0F, 4, 6, 4, par1);
       patte3.setRotationPoint(0F, 10F, 6F);
       patte3.setTextureSize(64, 32);
-      patte3.mirror = true;
       setRotation(patte3, 0F, 3.141593F, 0F);
       patte4 = new ModelRenderer(this, 0, 22);
       patte4.addBox(0F, 0F, 0F, 4, 6, 4, par1);

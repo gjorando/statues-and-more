@@ -9,11 +9,13 @@ public class TileEntity_statue extends TileEntity implements IInventory
 	private int buttonValue;
 	private String textField1, textField2;
 	public String skinURL;
+	private String textField3;
 
     public TileEntity_statue()
     {
     	textField1 = "<player name>";
     	textField2 = "<skin url>";
+    	textField3 = "";
     	buttonValue = 0;
         mc = (ModLoader.getMinecraftInstance());
         items = new ItemStack[5];
@@ -107,7 +109,8 @@ public class TileEntity_statue extends TileEntity implements IInventory
         //*
         buttonValue = nbttagcompound.getInteger("buttonValue");
         textField1 = nbttagcompound.getString("textField1");
-        textField2 = nbttagcompound.getString("textField2");//*/
+        textField2 = nbttagcompound.getString("textField2");
+        textField3 = nbttagcompound.getString("textField3");//*/
 
     }
 
@@ -134,7 +137,8 @@ public class TileEntity_statue extends TileEntity implements IInventory
         //*
         nbttagcompound.setInteger("buttonValue", buttonValue);
         nbttagcompound.setString("textField1", textField1);
-        nbttagcompound.setString("textField2", textField2);//*/
+        nbttagcompound.setString("textField2", textField2);
+        nbttagcompound.setString("textField3", textField3);//*/
     }
 
     public int getInventoryStackLimit()
@@ -242,4 +246,13 @@ public class TileEntity_statue extends TileEntity implements IInventory
 		this.textField2 = textField2;
 	}
     
+	public String getTextField3()
+	{
+		return textField3;
+	}
+
+	public void setTextField3(String textField3)
+	{
+		this.textField3 = textField3;
+	}
 }

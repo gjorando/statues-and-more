@@ -1,5 +1,11 @@
 # Changelog
 
+## v2r4
+
+* +Added a text slot to customize text on the slab
+* Fixed a quite annoying bug : Now, when you type a pseudo/url, no more need to re-click on the button
+* Arms and legs are now corrrectly mirrored, it's so much better
+
 ## v2r3 skeleton update
 
 * +Added a slot to select apparence of step under the statue

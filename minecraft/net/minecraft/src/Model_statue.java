@@ -33,46 +33,34 @@ public Model_statue(float par1)
   textureHeight = 32;
   
   jambe_gauche = new ModelRenderer(this, 0, 16);
+  jambe_gauche.mirror = true;
   jambe_gauche.addBox(0F, 0F, 0F, 4, 12, 4, par1);
   jambe_gauche.setRotationPoint(0F, 4F, -2F);
-  jambe_gauche.setTextureSize(64, 32);
-  jambe_gauche.mirror = true;
   setRotation(jambe_gauche, 0F, 0F, 0F);
   jambe_droite = new ModelRenderer(this, 0, 16);
   jambe_droite.addBox(0F, 0F, 0F, 4, 12, 4, par1);
   jambe_droite.setRotationPoint(-4F, 4F, -2F);
-  jambe_droite.setTextureSize(64, 32);
-  jambe_droite.mirror = true;
   setRotation(jambe_droite, 0F, 0F, 0F);
   corps = new ModelRenderer(this, 16, 16);
   corps.addBox(0F, 0F, 0F, 8, 12, 4, par1);
   corps.setRotationPoint(-4F, -8F, -2F);
-  corps.setTextureSize(64, 32);
-  corps.mirror = true;
   setRotation(corps, 0F, 0F, 0F);
   bras_gauche = new ModelRenderer(this, 40, 16);
+  bras_gauche.mirror = true;
   bras_gauche.addBox(0F, 0F, 0F, 4, 12, 4, par1);
   bras_gauche.setRotationPoint(4F, -8F, -2F);
-  bras_gauche.setTextureSize(64, 32);
-  bras_gauche.mirror = true;
   setRotation(bras_gauche, 0F, 0F, 0F);
   bras_droit = new ModelRenderer(this, 40, 16);
   bras_droit.addBox(0F, 0F, 0F, 4, 12, 4, par1);
   bras_droit.setRotationPoint(-8F, -8F, -2F);
-  bras_droit.setTextureSize(64, 32);
-  bras_droit.mirror = true;
   setRotation(bras_droit, 0F, 0F, 0F);
   tete = new ModelRenderer(this, 0, 0);
   tete.addBox(0F, 0F, 0F, 8, 8, 8, par1);
   tete.setRotationPoint(-4F, -16F, -4F);
-  tete.setTextureSize(64, 32);
-  tete.mirror = true;
   setRotation(tete, 0F, 0F, 0F);
   chapeau = new ModelRenderer(this, 32, 0);
   chapeau.addBox(0F, 0F, 0F, 8, 8, 8, par1+0.5F);
   chapeau.setRotationPoint(-4F, -16F, -4F);
-  chapeau.setTextureSize(64, 32);
-  chapeau.mirror = true;
   setRotation(chapeau, 0F, 0F, 0F);
 }
 

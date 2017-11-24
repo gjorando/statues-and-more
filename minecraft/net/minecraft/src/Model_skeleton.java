@@ -33,10 +33,10 @@ public Model_skeleton(float par1)
   textureHeight = 32;
   
   jambe_gauche = new ModelRenderer(this, 0, 16);
+  jambe_gauche.mirror = true;
   jambe_gauche.addBox(0F, 0F, 0F, 2, 12, 2, par1);
   jambe_gauche.setRotationPoint(1F, 4F, -2F);
   jambe_gauche.setTextureSize(64, 32);
-  jambe_gauche.mirror = true;
   setRotation(jambe_gauche, 0F, 0F, 0F);
   jambe_droite = new ModelRenderer(this, 0, 16);
   jambe_droite.addBox(0F, 0F, 0F, 2, 12, 2, par1);
@@ -51,10 +51,10 @@ public Model_skeleton(float par1)
   corps.mirror = true;
   setRotation(corps, 0F, 0F, 0F);
   bras_gauche = new ModelRenderer(this, 40, 16);
+  bras_gauche.mirror = true;
   bras_gauche.addBox(0F, 0F, 0F, 2, 12, 2, par1);
   bras_gauche.setRotationPoint(4F, -8F, -2F);
   bras_gauche.setTextureSize(64, 32);
-  bras_gauche.mirror = true;
   setRotation(bras_gauche, 0F, 0F, 0F);
   bras_droit = new ModelRenderer(this, 40, 16);
   bras_droit.addBox(0F, 0F, 0F, 2, 12, 2, par1);
