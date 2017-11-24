@@ -13,18 +13,19 @@ public class ContainerStatue extends Container
         addSlot(new SlotArmor(null, testatue, 1, 53, 26, 1));
         addSlot(new SlotArmor(null, testatue, 2, 53, 44, 2));
         addSlot(new SlotArmor(null, testatue, 3, 53, 62, 3));
+        addSlot(new SlotStandardBlock(testatue, 4, 53, 80));
         
         for(int j = 0; j < 3; j++)
 		{
 			for(int i1 = 0; i1 < 9; i1++)
 			{
-				addSlot(new Slot(inv, i1 + j * 9 + 9, 8 + i1 * 18, 84 + 18 + j * 18));
+				addSlot(new Slot(inv, i1 + j * 9 + 9, 8 + i1 * 18, 84 + 18 + 18 + j * 18));
 			}
 		}
   
         for(int k = 0; k < 9; k++)
 		{
-        	addSlot(new Slot(inv, k, 8 + k * 18, 142 + 18));
+        	addSlot(new Slot(inv, k, 8 + k * 18, 142 + 18 + 18));
 		}
     }
 

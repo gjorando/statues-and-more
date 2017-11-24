@@ -8,11 +8,11 @@ public class Render_statue extends TileEntitySpecialRenderer
 	private Model_statue statue;
 	private Model_armor inner;
 	private Model_armor outer;
-	private Model_slab slab;
 	private Model_Screeper creeper;
 	private Model_Acreeper armorcreep;
 	private Model_croix croix;
 	private Model_massif massif;
+	private Model_skeleton skeleton;
     private static String armorArray[];
 	
 	   public Render_statue()
@@ -20,17 +20,16 @@ public class Render_statue extends TileEntitySpecialRenderer
 	      statue = new Model_statue();
 	      inner = new Model_armor(0.5F);
 	      outer = new Model_armor(1F);
-	      slab = new Model_slab();
 	      creeper = new Model_Screeper();
 	      armorcreep = new Model_Acreeper(0.5F);
 	      croix = new Model_croix();
-	      massif = new Model_massif();	      
+	      massif = new Model_massif();	
+	      skeleton = new Model_skeleton();
 	   }
 	    
 	    public void renderAModelAt(TileEntity_statue  tileentity1, double d, double d1, double d2, float f)
         {   
           int i = 0;
-          float f5 = (tileentity1.getBlockMetadata() * 360) / 16;
          
           if (armorArray == null)
           {
@@ -48,10 +47,9 @@ public class Render_statue extends TileEntitySpecialRenderer
           {
               return;
           }
-                    
-          Block block = tileentity1.getBlockType();
-            i = tileentity1.getBlockMetadata();     
-           mod_statue.statue.setBlockBounds(0F, 0F, 0F, 1F, 3F, 1F);
+          
+           Block block = tileentity1.getBlockType();
+           i = tileentity1.getBlockMetadata(); 
            GL11.glPushMatrix();
            GL11.glTranslatef((float) d + 0.5F, (float) d1 +1.5F, (float) d2 +0.5F );
            if (i == 0)
@@ -78,19 +76,19 @@ public class Render_statue extends TileEntitySpecialRenderer
                GL11.glRotatef(180F, 1.0F, 0F, 0.0F);
            }
            
-           for (int iFor = -2; iFor < 4; iFor++)
+           for (int iFor = -1; iFor < 4; iFor++)
            {
                Model_statue modelstatue;
                Model_armor modelarmor;
-               Model_slab modelslab;
                Model_Screeper modelcreeper;
            	   Model_Acreeper modelarmorcreep;
            	   Model_croix modelcroix;
            	   Model_massif modelmassif;
+           	   Model_skeleton modelskeleton;
                
            	   int button = tileentity1.getButtonValue();
            	   
-               if (iFor == -2)
+               if (iFor == -1)
                {
             	   
             	   if(button == 4)
@@ -126,12 +124,11 @@ public class Render_statue extends TileEntitySpecialRenderer
             		   modelcroix = croix;
             		   modelcroix.renderModel(0.0625F);
             	   }
-               }
-               else if(iFor == -1)
-               {
-            	   bindTextureByName("/dolfinsbizou/slab.png");
-            	   modelslab = slab;
-            	   modelslab.renderModel(0.0625F);
+            	   else if(button == 8)
+            	   {
+            		   modelskeleton = skeleton;
+            		   modelskeleton.renderModel(0.0625F);
+            	   }
                }
                else if (iFor == 0 || iFor == 1 || iFor == 2 || iFor == 3)
                {
@@ -145,7 +142,7 @@ public class Render_statue extends TileEntitySpecialRenderer
                    ItemArmor itemarmor = (ItemArmor)Item.itemsList[itemstack.itemID];
                    int k = itemarmor.armorType;
                    bindTextureByName((new StringBuilder("/armor/")).append(armorArray[itemarmor.renderIndex]).append("_").append(k != 2 ? 1 : 2).append(".png").toString());
-                   if(button == 1 || button == 2 || button == 3 || button == 4 || button == 5 || button == 7)
+                   if(button == 1 || button == 2 || button == 3 || button == 4 || button == 5 || button == 7 || button == 8)
                    {
 	                   modelarmor = k != 2 ? outer : inner;
 	                   modelarmor.tete.showModel = k == 0;
@@ -155,6 +152,14 @@ public class Render_statue extends TileEntitySpecialRenderer
 	                   modelarmor.jambe_droite.showModel = k == 2 || k == 3;
 	                   modelarmor.jambe_gauche.showModel = k == 2 || k == 3;//*/
 	                   modelarmor.renderModel(0.0625F);
+	                   if(button == 7)
+	                   {
+	                	   modelarmor.tete.rotateAngleX = 0.3F;
+	                   }
+	                   else
+	                   {
+	                	   modelarmor.tete.rotateAngleX = 0F;
+	                   }
                    }
                    else if(button == 6)
                    {

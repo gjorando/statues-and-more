@@ -39,7 +39,8 @@ public class GuiSculpt extends GuiScreen
 		textfield2.setMaxStringLength(500); //url
 		textfield2.setText(testatue.getTextField2());
 		controlList.add(new GuiTinyButton(15, centrageX+24, centrageY+firstButtonY+22, 44, "Creeper"));
-		controlList.add(new GuiTinyButton(16, centrageX+24, centrageY+firstButtonY+33, 44, "Cross"));
+		controlList.add(new GuiTinyButton(16, centrageX+24, centrageY+firstButtonY+44, 44, "Cross"));
+		controlList.add(new GuiTinyButton(17, centrageX+24, centrageY+firstButtonY+33, 44, "Skeleton"));
     }
 
 	public boolean doesGuiPauseGame()
@@ -117,6 +118,9 @@ public class GuiSculpt extends GuiScreen
     	break;
     	case 16:
     		testatue.setButtonValue(7);
+    	break;
+    	case 17:
+    		testatue.setButtonValue(8);
     	break;
     	}
     }

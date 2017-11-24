@@ -14,7 +14,7 @@ public class GuiStatue extends GuiContainer
         invg = inv;
         tile = testatue;
         xSize = 176;
-        ySize = 184;
+        ySize = 202;
     }
 
     protected void drawGuiContainerForegroundLayer()

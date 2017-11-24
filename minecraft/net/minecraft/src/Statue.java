@@ -7,11 +7,11 @@ public class Statue extends BlockContainer
 {
 	private Class Statue_EntityClass;
 	   
-   protected Statue(int i, Class tClass)
-   
+   protected Statue(int i, Class tClass, Material material) 
    {
-	   super(i, Material.wood);
+	   super(i, material);
 	   Statue_EntityClass = tClass;
+	   setBlockBounds(0F, 0F, 0F, 1F, 0.5F, 1F);
    }
    
     public TileEntity getBlockEntity()
@@ -37,10 +37,10 @@ public class Statue extends BlockContainer
       return 1;
    }
    
-   public int getRenderType()
+   /*public int getRenderType()
    {
       return -1;
-   }
+   }*/
 
    public boolean isOpaqueCube()
    {
@@ -50,6 +50,31 @@ public class Statue extends BlockContainer
    public boolean renderAsNormalBlock()
    {
       return false;
+   }
+   
+   public int getBlockTexture(IBlockAccess iblockaccess, int i, int j, int k, int w)
+   {
+       IInventory iinventory = (IInventory)iblockaccess.getBlockTileEntity(i, j, k);
+       
+       if (iinventory != null && iinventory.getStackInSlot(4) != null)
+       {
+           ItemStack itemstack = iinventory.getStackInSlot(4);
+
+           if (itemstack.itemID < 256 && Block.blocksList[itemstack.itemID].getRenderType() == 0)
+           {
+               Block block = Block.blocksList[itemstack.itemID];
+               return block.getBlockTextureFromSideAndMetadata(w, itemstack.getItemDamage());
+           }
+       }
+	   return Block.stone.getBlockTextureFromSide(w);
+   }
+      
+   
+   public void getCollidingBoundingBoxes(World world, int i, int j, int k, AxisAlignedBB axisalignedbb, ArrayList arraylist)
+   {
+       setBlockBounds(0F, 0F, 0F, 1F, 2F, 1F);
+       super.getCollidingBoundingBoxes(world, i, j, k, axisalignedbb, arraylist);
+       setBlockBounds(0F, 0F, 0F, 1F, 0.5F, 1F);
    }
    
    public void onBlockPlacedBy(World world, int i, int j, int k, EntityLiving entityliving)
@@ -130,7 +155,7 @@ public class Statue extends BlockContainer
 
 public boolean canPlaceBlockAt(World world, int i, int j, int k)
    {
-	   if (world.getBlockId(i, j+1, k) == 0 && world.getBlockId(i, j+2, k) == 0)
+	   if (world.getBlockId(i, j+1, k) == 0 && world.getBlockId(i, j+2, k) == 0 && world.getBlockId(i, j-1, k) != 0)
 	   {
 		   return true;
 	   }
@@ -145,7 +170,7 @@ public boolean canPlaceBlockAt(World world, int i, int j, int k)
        ModLoader.genericContainerRemoval(world, i, j, k);
        super.onBlockRemoval(world, i, j, k);
    }
-   
+   //*
    public void onNeighborBlockChange(World world, int i, int j, int k, int l)
    {
        if (!world.isBlockNormalCube(i, j - 1, k))
@@ -153,5 +178,5 @@ public boolean canPlaceBlockAt(World world, int i, int j, int k)
            dropBlockAsItem(world, i, j, k, world.getBlockMetadata(i, j, k), 0);
            world.setBlockWithNotify(i, j, k, 0);
        }
-   }
+   }//*/
 }

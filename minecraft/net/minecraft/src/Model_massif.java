@@ -22,8 +22,8 @@ public class Model_massif extends ModelBase
     textureHeight = 64;
     
       Shape1 = new ModelRenderer(this, 0, 0);
-      Shape1.addBox(0F, 0F, 0F, 16, 40, 16);
-      Shape1.setRotationPoint(-8F, -24F, -8F);
+      Shape1.addBox(0F, 0F, 0F, 16, 24, 16);
+      Shape1.setRotationPoint(-8F, -8F, -8F);
       Shape1.setTextureSize(64, 64);
       Shape1.mirror = true;
       setRotation(Shape1, 0F, 0F, 0F);

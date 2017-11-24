@@ -12,11 +12,11 @@ public class TileEntity_statue extends TileEntity implements IInventory
 
     public TileEntity_statue()
     {
-    	textField1 = "";
-    	textField2 = "";
+    	textField1 = "<player name>";
+    	textField2 = "<skin url>";
     	buttonValue = 0;
         mc = (ModLoader.getMinecraftInstance());
-        items = new ItemStack[4];
+        items = new ItemStack[5];
     }
 
     public int getSizeInventory()
@@ -197,6 +197,8 @@ public class TileEntity_statue extends TileEntity implements IInventory
 			return mc.renderEngine.getTexture("/mob/creeper.png");
 		case 7:
 			return mc.renderEngine.getTexture("/dolfinsbizou/croix.png");
+		case 8:
+			return mc.renderEngine.getTexture("/mob/skeleton.png");
 		}
     }
     

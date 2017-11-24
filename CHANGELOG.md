@@ -1,5 +1,12 @@
 # Changelog
 
+## v2r3 skeleton update
+
+* +Added a slot to select apparence of step under the statue
+* +Added the skeleton apparence
+* Corrected a hitbox bug
+* Can't no more place a statue with air under by clicking on the side of a block
+
 ## v2r2
 
 * Fixed and resolved an important bug: when clicking on the statue without any item in the hand, the game crashed
