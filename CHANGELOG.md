@@ -6,7 +6,7 @@
 
 ## v4pre-alpha1 (for MC 1.3.2)
 
--Temporary removed the non-finished .cfg file
+* -Temporary removed the non-finished .cfg file
 * Totally rewrited the mod for a lighter code, and easier updates.
 * Finished the giant statue generator. But the generated blocks diseapear at each map reload, due to the new Minecraft code in 1.3.2. It will be fixed later.
 * A lot of new ­ing bugs! Thank you MC1.3.2! \o/
