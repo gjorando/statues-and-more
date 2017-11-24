@@ -6,10 +6,16 @@ public class TileEntity_statue extends TileEntity implements IInventory
 {
     private Minecraft mc;
     private ItemStack items[];
+	private int buttonValue;
+	private String textField1, textField2;
+	public String skinURL;
 
     public TileEntity_statue()
     {
-        mc = ModLoader.getMinecraftInstance();
+    	textField1 = "";
+    	textField2 = "";
+    	buttonValue = 0;
+        mc = (ModLoader.getMinecraftInstance());
         items = new ItemStack[4];
     }
 
@@ -98,6 +104,10 @@ public class TileEntity_statue extends TileEntity implements IInventory
                 items[j] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
             }
         }
+        //*
+        buttonValue = nbttagcompound.getInteger("buttonValue");
+        textField1 = nbttagcompound.getString("textField1");
+        textField2 = nbttagcompound.getString("textField2");//*/
 
     }
 
@@ -121,7 +131,11 @@ public class TileEntity_statue extends TileEntity implements IInventory
         }
 
         nbttagcompound.setTag("Items", nbttaglist);
-        }
+        //*
+        nbttagcompound.setInteger("buttonValue", buttonValue);
+        nbttagcompound.setString("textField1", textField1);
+        nbttagcompound.setString("textField2", textField2);//*/
+    }
 
     public int getInventoryStackLimit()
     {
@@ -153,4 +167,77 @@ public class TileEntity_statue extends TileEntity implements IInventory
     public void closeChest()
     {
     }
+    
+    public int getSkin()
+    {
+		switch(buttonValue)
+		{
+		case 0:
+		default:
+			return mc.renderEngine.getTexture("/dolfinsbizou/massif.png");
+		case 1:
+			return 1;
+		case 2:
+			return mc.renderEngine.getTexture("/dolfinsbizou/statue.png");
+		case 3:
+			return mc.renderEngine.getTexture("/mob/zombie.png");
+		case 4:
+			if (getTextField1() != null && getTextField1().length() > 0)
+	        {
+	            skinURL = (new StringBuilder()).append("http://s3.amazonaws.com/MinecraftSkins/").append(getTextField1()).append(".png").toString();
+	        }
+			else
+			{
+				skinURL = "http://www.perdu.com";
+			}
+			return mc.renderEngine.getTextureForDownloadableImage(skinURL, "/dolfinsbizou/noweb.png");
+		case 5:
+			return mc.renderEngine.getTextureForDownloadableImage(getTextField2(), "/dolfinsbizou/noweb.png");
+		case 6:
+			return mc.renderEngine.getTexture("/mob/creeper.png");
+		case 7:
+			return mc.renderEngine.getTexture("/dolfinsbizou/croix.png");
+		}
+    }
+    
+    public void setButtonValue(int value)
+    {
+    	buttonValue = value;
+    }
+
+	public int getButtonValue()
+	{
+		return buttonValue;
+	}
+
+	public Minecraft getMc()
+	{
+		return mc;
+	}
+
+	public String getTextField1()
+	{
+		return textField1;
+	}
+
+	public void setTextField1(String textField1)
+	{
+		this.textField1 = textField1;
+	}
+
+	public String getSkinURL()
+	{
+		return skinURL;
+	}
+	
+	public String getTextField2()
+	{
+		return textField2;
+	}
+
+	public void setTextField2(String textField2)
+	{
+		this.textField2 = textField2;
+	}
+    
 }

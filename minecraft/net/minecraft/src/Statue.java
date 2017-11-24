@@ -54,7 +54,6 @@ public class Statue extends BlockContainer
    
    public void onBlockPlacedBy(World world, int i, int j, int k, EntityLiving entityliving)
    {
-	   //*
 	   int i1 = MathHelper.floor_double((double)((entityliving.rotationYaw * 4F) / 360F) + 0.5D) & 3;
 	   int j1 = world.getBlockMetadata(i, j, k) & 4;
 	   int k1 = 0;
@@ -80,16 +79,30 @@ public class Statue extends BlockContainer
        }
        
        world.setBlockMetadataWithNotify(i, j, k, k1 | j1);
-       //*/
    }
    
    public boolean blockActivated(World world, int x, int y, int z, EntityPlayer entityplayer)
    {
+	   int slot = 0;
+	   ItemStack itemstack = entityplayer.inventory.getCurrentItem();
        TileEntity_statue testatue = (TileEntity_statue)world.getBlockTileEntity(x, y, z);
-
-       if (testatue != null)
+       if (testatue != null && itemstack.itemID != mod_statue.marteau.shiftedIndex && testatue.getButtonValue() != 0)
        {
            ModLoader.openGUI(entityplayer, new GuiStatue(entityplayer.inventory, testatue));
+       }
+       else if (itemstack.itemID == mod_statue.marteau.shiftedIndex && (entityplayer.inventory.hasItem(mod_statue.burin.shiftedIndex) || entityplayer.capabilities.isCreativeMode))
+       {
+    	   for (int i = 0; i < 36; i++)
+           {
+               if (entityplayer.inventory.getStackInSlot(i) != null && entityplayer.inventory.getStackInSlot(i).itemID == mod_statue.burin.shiftedIndex)
+               {
+                   slot = i;
+               }
+           }
+    	   
+    	   ItemStack burin = entityplayer.inventory.getStackInSlot(slot);
+    	   burin.damageItem(1, entityplayer);
+    	   ModLoader.openGUI(entityplayer, new GuiSculpt(testatue, world, x, y, z));
        }
 
        return true;

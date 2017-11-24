@@ -19,7 +19,7 @@ public class GuiStatue extends GuiContainer
 
     protected void drawGuiContainerForegroundLayer()
     {
-        fontRenderer.drawString(tile.getInvName(), 48, -7, 0x404040);
+        fontRenderer.drawString(tile.getInvName(), 48, -7, 0x808080);
     }
 
 

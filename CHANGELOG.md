@@ -1,5 +1,13 @@
 # Changelog
 
+## v2r creeper update
+
+* +Added hammer and chisel
+* +Changed craft of the statue, added mysterious powder
+* +Added customization GUI, also called Sculpt GUI
+* Now, by placing a statue, it's not directly usable, you have to select appearance in the customization GUI by using a hammer
+* Creeper update!
+
 ## v1r
 
 * +Render of armor stuff on the Statue functional
