@@ -18,7 +18,7 @@ public class TileEntity_statue extends TileEntity implements IInventory
     	textField3 = "";
     	buttonValue = 0;
         mc = (ModLoader.getMinecraftInstance());
-        items = new ItemStack[5];
+        items = new ItemStack[6];
     }
 
     public int getSizeInventory()
@@ -254,5 +254,54 @@ public class TileEntity_statue extends TileEntity implements IInventory
 	public void setTextField3(String textField3)
 	{
 		this.textField3 = textField3;
+	}
+	
+	public int getTextColor()
+	{
+		ItemStack stack = this.getStackInSlot(5);
+		if(stack != null)
+		{
+			int i = MathHelper.clamp_int(stack.getItemDamage(), 0, 15);
+			switch(i)
+			{
+			case 0: //inksac
+			default:
+				return 0x151010;
+			case 1: //rose red
+				return 0x902D2F;
+			case 2: //catus green
+				return 0x30411E;
+			case 3: //cocoa beans
+				return 0x4B2E1F;
+			case 4: //lapis lazuli
+				return 0x2E3882;
+			case 5: //purple dye
+				return 0x7838A3;
+			case 6: //cyan dye
+				return 0x2E758D;
+			case 7: //light grey dye
+				return 0x929292;
+			case 8: //grey dye
+				return 0x3B3B3B;
+			case 9: //pink dye
+				return 0xCE778F;
+			case 10: //lime green dye
+				return 0x38B94E;
+			case 11: //dandelion yellow
+				return 0xCEC14C;
+			case 12: //light blue dye
+				return 0x7291C8;
+			case 13: //magenta dye
+				return 0xAE41AE;
+			case 14: //orange dye
+				return 0xDB733E;
+			case 15: //bone meal
+				return 0xFBFBFB;
+			}
+		}
+		else
+		{
+			return 0x000000;
+		}
 	}
 }

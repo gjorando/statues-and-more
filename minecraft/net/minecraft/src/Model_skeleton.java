@@ -112,4 +112,27 @@ public void setRotationAngles(float f, float f1, float f2, float f3, float f4, f
   super.setRotationAngles(f, f1, f2, f3, f4, f5);
 }
 
+public void stepExists(boolean exists)
+{
+	if(!exists)
+	{
+		this.jambe_droite.rotationPointY = 12F;
+		this.jambe_gauche.rotationPointY = 12F;
+		this.corps.rotationPointY = 0F;
+		this.bras_droit.rotationPointY = 0F;
+		this.bras_gauche.rotationPointY = 0F;
+		this.tete.rotationPointY = -8F;
+		this.chapeau.rotationPointY = -8F;
+	}
+	else
+	{
+		this.jambe_droite.rotationPointY = 4F;
+		this.jambe_gauche.rotationPointY = 4F;
+		this.corps.rotationPointY = -8F;
+		this.bras_droit.rotationPointY = -8F;
+		this.bras_gauche.rotationPointY = -8F;
+		this.tete.rotationPointY = -16F;
+		this.chapeau.rotationPointY = -16F;
+	}
+}
 }

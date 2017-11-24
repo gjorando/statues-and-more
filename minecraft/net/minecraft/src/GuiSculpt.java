@@ -126,6 +126,7 @@ public class GuiSculpt extends GuiScreen
     		testatue.setButtonValue(8);
     	break;
     	}
+    	monde.markBlockNeedsUpdate(x, y, z);
     }
 
 }

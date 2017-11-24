@@ -12,12 +12,14 @@ public class mod_statue extends BaseMod
 	public static final Item marteau = new ItemMarteau(502).setIconIndex(ModLoader.addOverride("/gui/items.png", "/dolfinsbizou/marteau.png")).setItemName("marteau");
 	public static final Item poudreMagique = new ItemMagicPowder(503).setIconIndex(ModLoader.addOverride("/gui/items.png", "/dolfinsbizou/poudremagique.png")).setItemName("poudreMagique");
 	public static int slotStandardBlock;
+	public static int textNull;
+	public static int slotDye;
 
 	
 	
 	public String getVersion()
 	{
-		return "2r4";
+		return "2r5 color update";
 	}
 	
 	public void load()
@@ -35,8 +37,9 @@ public class mod_statue extends BaseMod
 		                {
 		            "SSS",
 		            "SPS",
-		            "SSS",
-		Character.valueOf('S'), Block.stone, Character.valueOf('P'), mod_statue.poudreMagique
+		            "DDD",
+		Character.valueOf('S'), Block.stone, Character.valueOf('P'), mod_statue.poudreMagique, 
+		Character.valueOf('D'), new ItemStack(Block.stairSingle, 1, 0)
 		                });
 		
 		ModLoader.addName(burin, "Chisel");
@@ -68,6 +71,8 @@ public class mod_statue extends BaseMod
 		            Item.coal, Item.blazePowder, Block.dirt,
 		                });
 		slotStandardBlock = ModLoader.addOverride("/gui/items.png", "/dolfinsbizou/slotstandardblock.png");
+		slotDye = ModLoader.addOverride("/gui/items.png", "/dolfinsbizou/slotdye.png");
+		textNull = ModLoader.addOverride("/terrain.png", "/dolfinsbizou/null.png");
 	}
 	
 	@Override

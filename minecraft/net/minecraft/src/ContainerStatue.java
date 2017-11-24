@@ -14,6 +14,7 @@ public class ContainerStatue extends Container
         addSlot(new SlotArmor(null, testatue, 2, 53, 44, 2));
         addSlot(new SlotArmor(null, testatue, 3, 53, 62, 3));
         addSlot(new SlotStandardBlock(testatue, 4, 53, 80));
+        addSlot(new SlotDye(testatue, 5, 138, 80));
         
         for(int j = 0; j < 3; j++)
 		{

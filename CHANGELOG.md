@@ -1,5 +1,14 @@
 # Changelog
 
+## v2r5 colour update
+
+* +Added a slot to change text color using dyes of minecraft
+* +Added a wooden sign on the slab for the text for esthetical issues
+* +Added capability to place a cake in the block slot. Useless but fun!
+* Now, if there isn't any block in the block slot, you don't see a slab and the statue is directly on the ground
+* Changed the craft
+* Fixed an occasionnal crash bug by openning GUI sculpt in creative
+
 ## v2r4
 
 * +Added a text slot to customize text on the slab

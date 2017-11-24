@@ -62,4 +62,17 @@ public class Model_croix extends ModelBase
     super.setRotationAngles(f, f1, f2, f3, f4, f5);
   }
 
+  public void stepExists(boolean exists)
+  {
+  	if(!exists)
+  	{
+  		this.Shape1.rotationPointY = -8F;
+  		this.Shape2.rotationPointY = 0F;
+  	}
+  	else
+  	{
+  		this.Shape1.rotationPointY = -16F;
+  		this.Shape2.rotationPointY = -8F;
+  	}
+  }
 }

@@ -98,4 +98,25 @@ public class Model_Screeper extends ModelBase
     super.setRotationAngles(f, f1, f2, f3, f4, f5);
   }
 
+  public void stepExists(boolean exists)
+  {
+  	if(!exists)
+  	{
+  		this.patte1.rotationPointY = 18F;
+  		this.patte2.rotationPointY = 18F;
+  		this.patte3.rotationPointY = 18F;
+  		this.patte4.rotationPointY = 18F;
+  		this.Shape1.rotationPointY = 6F;
+  		this.tete.rotationPointY = -2F;
+  	}
+  	else
+  	{
+  		this.patte1.rotationPointY = 10F;
+  		this.patte2.rotationPointY = 10F;
+  		this.patte3.rotationPointY = 10F;
+  		this.patte4.rotationPointY = 10F;
+  		this.Shape1.rotationPointY = -2F;
+  		this.tete.rotationPointY = -10F;
+  	}
+  }
 }

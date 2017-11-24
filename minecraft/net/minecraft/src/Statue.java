@@ -36,11 +36,6 @@ public class Statue extends BlockContainer
    {
       return 1;
    }
-   
-   /*public int getRenderType()
-   {
-      return -1;
-   }*/
 
    public boolean isOpaqueCube()
    {
@@ -56,23 +51,35 @@ public class Statue extends BlockContainer
    {
        IInventory iinventory = (IInventory)iblockaccess.getBlockTileEntity(i, j, k);
        
+       TileEntity_statue tile = (TileEntity_statue)iblockaccess.getBlockTileEntity(i, j, k);
+       
        if (iinventory != null && iinventory.getStackInSlot(4) != null)
        {
            ItemStack itemstack = iinventory.getStackInSlot(4);
-
+           
            if (itemstack.itemID < 256 && Block.blocksList[itemstack.itemID].getRenderType() == 0)
            {
+        	   setBlockBounds(0F, 0F, 0F, 1F, 0.5F, 1F);
                Block block = Block.blocksList[itemstack.itemID];
                return block.getBlockTextureFromSideAndMetadata(w, itemstack.getItemDamage());
            }
+           else if(itemstack.itemID == Item.cake.shiftedIndex)
+           {
+        	   setBlockBounds(0.0625F, 0F, 0.0625F, 0.9375F, 0.5F, 0.9375F);
+               return Block.cake.getBlockTextureFromSide(w);
+           }
        }
-	   return Block.stone.getBlockTextureFromSide(w);
+       else if(tile.getStackInSlot(4) == null && tile.getButtonValue() != 0)
+       {
+    	   return mod_statue.textNull;
+       }
+       return Block.stairSingle.getBlockTextureFromSide(w);
    }
       
    
    public void getCollidingBoundingBoxes(World world, int i, int j, int k, AxisAlignedBB axisalignedbb, ArrayList arraylist)
    {
-       setBlockBounds(0F, 0F, 0F, 1F, 2F, 1F);
+	   setBlockBounds(0F, 0F, 0F, 1F, 2F, 1F);
        super.getCollidingBoundingBoxes(world, i, j, k, axisalignedbb, arraylist);
        setBlockBounds(0F, 0F, 0F, 1F, 0.5F, 1F);
    }
@@ -114,16 +121,19 @@ public class Statue extends BlockContainer
        boolean hammerHeld = isAHammer(itemstack);
        if (hammerHeld && (entityplayer.inventory.hasItem(mod_statue.burin.shiftedIndex) || entityplayer.capabilities.isCreativeMode))
        {
-    	   for (int i = 0; i < 36; i++)
-           {
-               if (entityplayer.inventory.getStackInSlot(i) != null && entityplayer.inventory.getStackInSlot(i).itemID == mod_statue.burin.shiftedIndex)
-               {
-                   slot = i;
-               }
-           }
-    	   
-    	   ItemStack burin = entityplayer.inventory.getStackInSlot(slot);
-    	   burin.damageItem(1, entityplayer);
+    	   if(entityplayer.inventory.hasItem(mod_statue.burin.shiftedIndex) == false)
+    	   {
+	    	   for (int i = 0; i < 36; i++)
+	           {
+	               if (entityplayer.inventory.getStackInSlot(i) != null && entityplayer.inventory.getStackInSlot(i).itemID == mod_statue.burin.shiftedIndex)
+	               {
+	                   slot = i;
+	               }
+	           }
+	    	   
+	    	   ItemStack burin = entityplayer.inventory.getStackInSlot(slot);
+	    	   burin.damageItem(1, entityplayer);
+    	   }
     	   ModLoader.openGUI(entityplayer, new GuiSculpt(testatue, world, x, y, z));
        }
        else if (testatue != null  && testatue.getButtonValue() != 0)

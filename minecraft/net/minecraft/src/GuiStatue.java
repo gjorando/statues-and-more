@@ -178,7 +178,6 @@ public class GuiStatue extends GuiContainer
     public void initGui()
     {
     	super.initGui();
-    	
     	int centreX = (width - xSize) / 2;
     	int centreY = (height - ySize) / 2;
     	
@@ -186,6 +185,7 @@ public class GuiStatue extends GuiContainer
     	textfield3 = new GuiTextField(fontRenderer, centreX+71, centreY+90, 52, 10);
 		textfield3.setMaxStringLength(16); //slab text
 		textfield3.setText(tile.getTextField3());
+    	
     }
     
     protected void mouseClicked(int i, int j, int k)

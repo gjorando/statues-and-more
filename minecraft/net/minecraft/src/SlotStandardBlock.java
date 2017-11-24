@@ -16,7 +16,11 @@ public class SlotStandardBlock extends Slot
     {
         if (stack.itemID < 256)
         {
-        	if(Block.blocksList[stack.itemID].getRenderType() == 0)
+        	if (stack.itemID == Item.cake.shiftedIndex)
+        	{
+        		return true;
+        	}
+        	else if(Block.blocksList[stack.itemID].getRenderType() == 0)
         	{
         		return true;
         	}
@@ -25,9 +29,13 @@ public class SlotStandardBlock extends Slot
         		return false;
         	}
         }
-        else
+        else if(stack.itemID == Item.cake.shiftedIndex)
         {
-            return false;
+            return true;
+        }
+        {
+        	return false;
+        	
         }
     }
 

@@ -13,6 +13,7 @@ public class Render_statue extends TileEntitySpecialRenderer
 	private Model_croix croix;
 	private Model_massif massif;
 	private Model_skeleton skeleton;
+	private Model_panneau panneau;
     private static String armorArray[];
 	
 	   public Render_statue()
@@ -25,6 +26,7 @@ public class Render_statue extends TileEntitySpecialRenderer
 	      croix = new Model_croix();
 	      massif = new Model_massif();	
 	      skeleton = new Model_skeleton();
+	      panneau = new Model_panneau();
 	   }
 	    
 	    public void renderAModelAt(TileEntity_statue  tileentity1, double d, double d1, double d2, float f)
@@ -76,7 +78,7 @@ public class Render_statue extends TileEntitySpecialRenderer
                GL11.glRotatef(180F, 1.0F, 0F, 0.0F);
            }
            
-           for (int iFor = -1; iFor <= 3; iFor++)
+           for (int iFor = -1; iFor <= 4; iFor++)
            {
                Model_statue modelstatue;
                Model_armor modelarmor;
@@ -85,8 +87,18 @@ public class Render_statue extends TileEntitySpecialRenderer
            	   Model_croix modelcroix;
            	   Model_massif modelmassif;
            	   Model_skeleton modelskeleton;
+           	   Model_panneau modelpanneau;
                
            	   int button = tileentity1.getButtonValue();
+           	   boolean step;
+           	   if(tileentity1.getStackInSlot(4) == null)
+           	   {
+           		   step = false;
+           	   }
+           	   else
+           	   {
+           		   step = true;
+           	   }
            	   
                if (iFor == -1)
                {
@@ -112,28 +124,32 @@ public class Render_statue extends TileEntitySpecialRenderer
             	   if(button == 2 || button == 3 || button == 4 || button == 5)
             	   {
             		   modelstatue = statue;
+            		   modelstatue.stepExists(step);
 	                   modelstatue.renderModel(0.0625F);
             	   }
             	   else if(button == 6)
             	   {
             		   modelcreeper = creeper;
+            		   modelcreeper.stepExists(step);
             		   modelcreeper.renderModel(0.0625F);
             	   }
             	   else if(button == 7)
             	   {
             		   modelcroix = croix;
+            		   modelcroix.stepExists(step);
             		   modelcroix.renderModel(0.0625F);
             	   }
             	   else if(button == 8)
             	   {
             		   modelskeleton = skeleton;
+            		   modelskeleton.stepExists(step);
             		   modelskeleton.renderModel(0.0625F);
             	   }
                }
                else if (iFor == 0 || iFor == 1 || iFor == 2 || iFor == 3)
                {
-                   ItemStack itemstack = tileentity1.getStackInSlot(iFor);
-
+            	   ItemStack itemstack = tileentity1.getStackInSlot(iFor);
+            	   
                    if (itemstack == null || !(Item.itemsList[itemstack.itemID] instanceof ItemArmor))
                    {
                        continue;
@@ -151,7 +167,6 @@ public class Render_statue extends TileEntitySpecialRenderer
 	                   modelarmor.bras_gauche.showModel = k == 1;
 	                   modelarmor.jambe_droite.showModel = k == 2 || k == 3;
 	                   modelarmor.jambe_gauche.showModel = k == 2 || k == 3;//*/
-	                   modelarmor.renderModel(0.0625F);
 	                   if(button == 7)
 	                   {
 	                	   modelarmor.tete.rotateAngleX = 0.3F;
@@ -160,6 +175,9 @@ public class Render_statue extends TileEntitySpecialRenderer
 	                   {
 	                	   modelarmor.tete.rotateAngleX = 0F;
 	                   }
+	                   modelarmor.stepExists(step);
+	                   modelarmor.renderModel(0.0625F);
+	                   
                    }
                    else if(button == 6)
                    {
@@ -170,10 +188,18 @@ public class Render_statue extends TileEntitySpecialRenderer
 	                   modelarmorcreep.patte2.showModel = k == 2 || k == 3;
 	                   modelarmorcreep.patte3.showModel = k == 2 || k == 3;
 	                   modelarmorcreep.patte4.showModel = k == 2 || k == 3;
+	                   modelarmorcreep.stepExists(step);
                 	   modelarmorcreep.renderModel(0.0625F);
                    }
                }
-
+               else if(iFor == 4 && tileentity1.getTextField3().length() != 0)
+               {
+            	   modelpanneau = panneau;
+            	   modelpanneau.stick.showModel = !step;
+            	   modelpanneau.stick2.showModel = !step;
+            	   bindTextureByName("/dolfinsbizou/sign.png");
+            	   modelpanneau.renderModel(0.0625F);
+               }
            }
            GL11.glPushMatrix();
            GL11.glPopMatrix();
@@ -182,11 +208,13 @@ public class Render_statue extends TileEntitySpecialRenderer
            float f2 = 0.7777777F;
            float fact = (f2*0.01666667F);
            String text = tileentity1.getTextField3();
-           GL11.glTranslatef(-0.5F, 1.2F, -0.503F);
+           GL11.glTranslatef(-0.5F, 1.2F, -0.570F);
            GL11.glScalef(fact, fact, fact);
            GL11.glNormal3f(0.0F, 0.0F, -1F * fact);
            GL11.glDepthMask(false);
-        	   fontrenderer.drawString(text, (pixel - fontrenderer.getStringWidth(text)) / 2, 0, 0);
+           GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+           int color = tileentity1.getTextColor();
+           fontrenderer.drawString(text, (pixel - fontrenderer.getStringWidth(text)) / 2, 0, color);
            GL11.glDepthMask(true);
            GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
            GL11.glPopMatrix();
