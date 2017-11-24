@@ -24,8 +24,7 @@ public class Render_statue extends TileEntitySpecialRenderer
 	      creeper = new Model_Screeper();
 	      armorcreep = new Model_Acreeper(0.5F);
 	      croix = new Model_croix();
-	      massif = new Model_massif();
-	      
+	      massif = new Model_massif();	      
 	   }
 	    
 	    public void renderAModelAt(TileEntity_statue  tileentity1, double d, double d1, double d2, float f)

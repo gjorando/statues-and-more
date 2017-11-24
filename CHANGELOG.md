@@ -1,5 +1,9 @@
 # Changelog
 
+## v2r2
+
+* Fixed and resolved an important bug: when clicking on the statue without any item in the hand, the game crashed
+
 ## v2r creeper update
 
 * +Added hammer and chisel

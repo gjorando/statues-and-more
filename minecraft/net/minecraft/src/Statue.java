@@ -86,11 +86,8 @@ public class Statue extends BlockContainer
 	   int slot = 0;
 	   ItemStack itemstack = entityplayer.inventory.getCurrentItem();
        TileEntity_statue testatue = (TileEntity_statue)world.getBlockTileEntity(x, y, z);
-       if (testatue != null && itemstack.itemID != mod_statue.marteau.shiftedIndex && testatue.getButtonValue() != 0)
-       {
-           ModLoader.openGUI(entityplayer, new GuiStatue(entityplayer.inventory, testatue));
-       }
-       else if (itemstack.itemID == mod_statue.marteau.shiftedIndex && (entityplayer.inventory.hasItem(mod_statue.burin.shiftedIndex) || entityplayer.capabilities.isCreativeMode))
+       boolean hammerHeld = isAHammer(itemstack);
+       if (hammerHeld && (entityplayer.inventory.hasItem(mod_statue.burin.shiftedIndex) || entityplayer.capabilities.isCreativeMode))
        {
     	   for (int i = 0; i < 36; i++)
            {
@@ -104,11 +101,34 @@ public class Statue extends BlockContainer
     	   burin.damageItem(1, entityplayer);
     	   ModLoader.openGUI(entityplayer, new GuiSculpt(testatue, world, x, y, z));
        }
+       else if (testatue != null  && testatue.getButtonValue() != 0)
+       {
+           ModLoader.openGUI(entityplayer, new GuiStatue(entityplayer.inventory, testatue));
+       }
 
        return true;
    }
    
-   public boolean canPlaceBlockAt(World world, int i, int j, int k)
+   private boolean isAHammer(ItemStack itemstack)
+   {
+	if (itemstack != null)
+	{
+		if (itemstack.itemID == mod_statue.marteau.shiftedIndex)
+		{
+		    return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	else
+	{
+		return false;
+	}
+   }
+
+public boolean canPlaceBlockAt(World world, int i, int j, int k)
    {
 	   if (world.getBlockId(i, j+1, k) == 0 && world.getBlockId(i, j+2, k) == 0)
 	   {

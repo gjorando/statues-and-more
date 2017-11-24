@@ -15,7 +15,7 @@ public class mod_statue extends BaseMod
 	
 	public String getVersion()
 	{
-		return "2r";
+		return "2r2";
 	}
 	
 	public void load()

@@ -27,19 +27,19 @@ public class GuiSculpt extends GuiScreen
 		int centrageY = (height - ySize) / 2;
 		int firstButtonY = 24;
 		controlList.add(new GuiTinyButton(100, centrageX+152, centrageY+130, 40, "Back"));
-		controlList.add(new GuiTinyButton(10, centrageX+24, centrageY+firstButtonY, 44, "Nothing"));
-		controlList.add(new GuiTinyButton(11, centrageX+24, centrageY+firstButtonY+11, 44, "Steve"));
-		controlList.add(new GuiTinyButton(12, centrageX+24, centrageY+firstButtonY+22, 44, "Zombie"));
-		controlList.add(new GuiTinyButton(13, centrageX+24, centrageY+firstButtonY+33, 44, "Skin"));
-		controlList.add(new GuiTinyButton(14, centrageX+24, centrageY+firstButtonY+44, 44, "URL"));
-		textfield = new GuiTextField(fontRenderer, centrageX+70, centrageY+firstButtonY+33, 121, 10);
-		textfield.setMaxStringLength(30);
+		controlList.add(new GuiTinyButton(10, centrageX+148, centrageY+firstButtonY, 44, "Nothing"));
+		controlList.add(new GuiTinyButton(11, centrageX+24, centrageY+firstButtonY, 44, "Steve"));
+		controlList.add(new GuiTinyButton(12, centrageX+24, centrageY+firstButtonY+11, 44, "Zombie"));
+		controlList.add(new GuiTinyButton(13, centrageX+24, centrageY+firstButtonY+106, 44, "Skin"));
+		controlList.add(new GuiTinyButton(14, centrageX+24, centrageY+firstButtonY+95, 44, "URL"));
+		textfield = new GuiTextField(fontRenderer, centrageX+70, centrageY+firstButtonY+106, 80, 10);
+		textfield.setMaxStringLength(30); //skin
 		textfield.setText(testatue.getTextField1());
-		textfield2 = new GuiTextField(fontRenderer, centrageX+70, centrageY+firstButtonY+44, 121, 10);
-		textfield2.setMaxStringLength(500);
+		textfield2 = new GuiTextField(fontRenderer, centrageX+70, centrageY+firstButtonY+95, 121, 10);
+		textfield2.setMaxStringLength(500); //url
 		textfield2.setText(testatue.getTextField2());
-		controlList.add(new GuiTinyButton(15, centrageX+24, centrageY+firstButtonY+55, 44, "Creeper"));
-		controlList.add(new GuiTinyButton(16, centrageX+24, centrageY+firstButtonY+66, 44, "Cross"));
+		controlList.add(new GuiTinyButton(15, centrageX+24, centrageY+firstButtonY+22, 44, "Creeper"));
+		controlList.add(new GuiTinyButton(16, centrageX+24, centrageY+firstButtonY+33, 44, "Cross"));
     }
 
 	public boolean doesGuiPauseGame()
