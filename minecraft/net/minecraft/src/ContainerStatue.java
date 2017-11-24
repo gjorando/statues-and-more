@@ -9,24 +9,25 @@ public class ContainerStatue extends Container
     {
         inv = inventory;
         tile = testatue;
-        addSlot(new SlotArmor(null, testatue, 0, 53, 8, 0));
-        addSlot(new SlotArmor(null, testatue, 1, 53, 26, 1));
-        addSlot(new SlotArmor(null, testatue, 2, 53, 44, 2));
-        addSlot(new SlotArmor(null, testatue, 3, 53, 62, 3));
-        addSlot(new SlotStandardBlock(testatue, 4, 53, 80));
-        addSlot(new SlotDye(testatue, 5, 138, 80));
+        addSlot(new SlotArmor(null, testatue, 0, 80, 8, 0));
+        addSlot(new SlotArmor(null, testatue, 1, 80, 26, 1));
+        addSlot(new SlotArmor(null, testatue, 2, 80, 44, 2));
+        addSlot(new SlotArmor(null, testatue, 3, 80, 62, 3));
+        addSlot(new SlotStandardBlock(testatue, 4, 80, 80));
+        addSlot(new SlotDye(testatue, 5, 111, 105));
+        addSlot(new SlotHand(testatue, 6, 111, 26));
         
         for(int j = 0; j < 3; j++)
 		{
 			for(int i1 = 0; i1 < 9; i1++)
 			{
-				addSlot(new Slot(inv, i1 + j * 9 + 9, 8 + i1 * 18, 84 + 18 + 18 + j * 18));
+				addSlot(new Slot(inv, i1 + j * 9 + 9, 8 + i1 * 18, 84 + 18 + 18 + 24 + j * 18));
 			}
 		}
   
         for(int k = 0; k < 9; k++)
 		{
-        	addSlot(new Slot(inv, k, 8 + k * 18, 142 + 18 + 18));
+        	addSlot(new Slot(inv, k, 8 + k * 18, 142 + 18 + 18 + 24));
 		}
     }
 

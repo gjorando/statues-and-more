@@ -18,7 +18,7 @@ public class TileEntity_statue extends TileEntity implements IInventory
     	textField3 = "";
     	buttonValue = 0;
         mc = (ModLoader.getMinecraftInstance());
-        items = new ItemStack[6];
+        items = new ItemStack[7];
     }
 
     public int getSizeInventory()

@@ -14,12 +14,11 @@ public class mod_statue extends BaseMod
 	public static int slotStandardBlock;
 	public static int textNull;
 	public static int slotDye;
-
-	
+	public static int slotHand;
 	
 	public String getVersion()
 	{
-		return "2r5 color update";
+		return "3r";
 	}
 	
 	public void load()
@@ -73,6 +72,7 @@ public class mod_statue extends BaseMod
 		slotStandardBlock = ModLoader.addOverride("/gui/items.png", "/dolfinsbizou/slotstandardblock.png");
 		slotDye = ModLoader.addOverride("/gui/items.png", "/dolfinsbizou/slotdye.png");
 		textNull = ModLoader.addOverride("/terrain.png", "/dolfinsbizou/null.png");
+		slotHand = ModLoader.addOverride("/gui/items.png", "/dolfinsbizou/slothand.png");
 	}
 	
 	@Override

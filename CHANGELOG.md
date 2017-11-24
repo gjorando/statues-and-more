@@ -1,5 +1,10 @@
 # Changelog
 
+## v3r
+
+* +Asked for a long time by many people, the slot to add an item held by the statue has been implemented
+* Modified armor GUI
+
 ## v2r5 colour update
 
 * +Added a slot to change text color using dyes of minecraft
