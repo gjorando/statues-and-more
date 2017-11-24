@@ -1,5 +1,6 @@
 package net.minecraft.src;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Statue extends BlockContainer
@@ -82,17 +83,30 @@ public class Statue extends BlockContainer
        //*/
    }
    
-   public void onBlockPlaced(World world, int i, int j, int k, int par5)
+   public boolean blockActivated(World world, int x, int y, int z, EntityPlayer entityplayer)
    {
-       if (par5 == 0)
+       TileEntity_statue testatue = (TileEntity_statue)world.getBlockTileEntity(x, y, z);
+
+       if (testatue != null)
        {
-           int i1 = world.getBlockMetadata(i, j, k);
-           world.setBlockMetadataWithNotify(i, j, k, i | 4);
+           ModLoader.openGUI(entityplayer, new GuiStatue(entityplayer.inventory, testatue));
        }
+
+       return true;
    }
    
-   public boolean blockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer)
+   public void onBlockRemoval(World world, int i, int j, int k)
    {
-       return true;
+       ModLoader.genericContainerRemoval(world, i, j, k);
+       super.onBlockRemoval(world, i, j, k);
+   }
+   
+   public void onNeighborBlockChange(World world, int i, int j, int k, int l)
+   {
+       if (!world.isBlockNormalCube(i, j - 1, k))
+       {
+           dropBlockAsItem(world, i, j, k, world.getBlockMetadata(i, j, k), 0);
+           world.setBlockWithNotify(i, j, k, 0);
+       }
    }
 }

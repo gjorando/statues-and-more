@@ -26,7 +26,7 @@ public class Model_statue extends ModelBase
 public Model_statue()
 {
   textureWidth = 64;
-  textureHeight = 128;
+  textureHeight = 64;
   
     jambe_droite = new ModelRenderer(this, 0, 16);
     jambe_droite.addBox(0F, 0F, 0F, 4, 12, 4);
@@ -70,24 +70,23 @@ public Model_statue()
     slab.setTextureSize(64, 128);
     slab.mirror = true;
     setRotation(slab, 0F, 0F, 0F);
-    glass = new ModelRenderer(this, 0, 55);
+    /*glass = new ModelRenderer(this, 0, 55);
     glass.addBox(0F, 0F, 0F, 16, 48, 16);
     glass.setRotationPoint(-8F, -24F, -8F);
     glass.setTextureSize(64, 128);
     glass.mirror = true;
-    setRotation(glass, 0F, 0F, 0F);
+    setRotation(glass, 0F, 0F, 0F);//*/
 }
 
 public void renderModel(float f)
 {
       bras_gauche.render(f);
       bras_droit.render(f);
-      glass.render(f);
       jambe_gauche.render(f);
       jambe_droite.render(f);
       corps.render(f);
       slab.render(f);
-      glass.render(f);
+      //glass.render(f);
       tete.render(f);
 }
 
