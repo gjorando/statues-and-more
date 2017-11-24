@@ -6,11 +6,31 @@ import net.minecraft.client.Minecraft;
 
 public class mod_statue extends BaseMod
 {
-	public static final Block statue = new Statue(128, net.minecraft.src.TileEntity_statue.class, Material.rock).setHardness(1F).setResistance(1F).setBlockName("statue");
-	public static final Item itemStatue = new ItemStatue(500, statue).setIconIndex(ModLoader.addOverride("/gui/items.png", "/dolfinsbizou/itemstatue.png")).setItemName("itemStatue");
-	public static final Item burin = new ItemBurin(501).setIconIndex(ModLoader.addOverride("/gui/items.png", "/dolfinsbizou/burin.png")).setItemName("burin");
-	public static final Item marteau = new ItemMarteau(502).setIconIndex(ModLoader.addOverride("/gui/items.png", "/dolfinsbizou/marteau.png")).setItemName("marteau");
-	public static final Item poudreMagique = new ItemMagicPowder(503).setIconIndex(ModLoader.addOverride("/gui/items.png", "/dolfinsbizou/poudremagique.png")).setItemName("poudreMagique");
+	@MLProp (min=1.0D, max=255.0D, info = "The block statue", name = "statueID")
+	public static int statueID = 128;
+	@MLProp (min=1.0D, max=255.0D, info = "The showcase statue", name = "showcaseID")
+	public static int showcaseID = 130;
+	@MLProp (min=1.0D, max=255.0D, info = "The giant statue generator block", name = "hugeID")
+	public static int hugeID = 129;
+	@MLProp (min=500.0D, max=1000.0D, info = "The item statue (used to place a block statue)", name = "itemStatueID")
+	public static int itemStatueID = 500;
+	@MLProp (min=500.0D, max=1000.0D, info = "The item chisel", name = "itemChiselID")
+	public static int itemChiselID = 501;
+	@MLProp (min=500.0D, max=1000.0D, info = "The item hammer", name = "itemHammerID")
+	public static int itemHammerID = 502;
+	@MLProp (min=500.0D, max=1000.0D, info = "The item magic powder", name = "itemMagicPowderID")
+	public static int itemMagicPowderID = 503;
+	@MLProp (min=500.0D, max=1000.0D, info = "The item showcase (used to place a block showcase)", name = "itemShowcaseID")
+	public static int itemShowcaseID = 504;
+	
+	public static final Block statue = new Statue(statueID, net.minecraft.src.TileEntity_statue.class, Material.rock).setHardness(1F).setResistance(1F).setBlockName("statue");
+	public static final Block showcase = new Showcase(showcaseID, net.minecraft.src.TileEntity_showcase.class, Material.rock).setHardness(1F).setResistance(1F).setBlockName("showcase");
+	public static final Block genStatueGiant = new BlockGenStatue(hugeID, ModLoader.addOverride("/terrain.png", "/dolfinsbizou/itemstatue.png")).setHardness(1F).setResistance(0.1F).setBlockName("genStatueGiant");
+	public static final Item itemStatue = new ItemStatue(itemStatueID, statue).setIconIndex(ModLoader.addOverride("/gui/items.png", "/dolfinsbizou/itemstatue.png")).setItemName("itemStatue");
+	public static final Item itemShowcase = new ItemShowcase(itemShowcaseID, showcase).setIconIndex(ModLoader.addOverride("/gui/items.png", "/dolfinsbizou/itemshowcase.png")).setItemName("itemShowcase");
+	public static final Item burin = new ItemBurin(itemChiselID).setIconIndex(ModLoader.addOverride("/gui/items.png", "/dolfinsbizou/burin.png")).setItemName("burin");
+	public static final Item marteau = new ItemMarteau(itemHammerID).setIconIndex(ModLoader.addOverride("/gui/items.png", "/dolfinsbizou/marteau.png")).setItemName("marteau");
+	public static final Item poudreMagique = new ItemMagicPowder(itemMagicPowderID).setIconIndex(ModLoader.addOverride("/gui/items.png", "/dolfinsbizou/poudremagique.png")).setItemName("poudreMagique");
 	public static int slotStandardBlock;
 	public static int textNull;
 	public static int slotDye;
@@ -18,17 +38,19 @@ public class mod_statue extends BaseMod
 	
 	public String getVersion()
 	{
-		return "3r";
+		return "3r1 W.I.P update";
 	}
 	
 	public void load()
-	{
+	{    
 		ModLoader.setInGUIHook(this, true, true);
 		ModLoader.setInGameHook(this, true, true);
 		 
 		Render_statue render_statue = new Render_statue();
+		Render_showcase render_showcase = new Render_showcase();
 
 		ModLoader.registerTileEntity(net.minecraft.src.TileEntity_statue.class, "TileEntity_statue", render_statue);
+		ModLoader.registerTileEntity(net.minecraft.src.TileEntity_showcase.class, "TileEntity_showcase", render_showcase);
 		
 		ModLoader.addName(itemStatue, "Statue");
 
@@ -41,13 +63,24 @@ public class mod_statue extends BaseMod
 		Character.valueOf('D'), new ItemStack(Block.stairSingle, 1, 0)
 		                });
 		
+		ModLoader.addName(itemShowcase, "Showcase");
+
+		ModLoader.addRecipe(new ItemStack(itemShowcase, 1), new Object[]
+		                {
+		            "GGG",
+		            "WPW",
+		            "S S",
+		Character.valueOf('S'), Item.stick, Character.valueOf('W'), Block.wood, 
+		Character.valueOf('G'), Block.thinGlass, Character.valueOf('P'), mod_statue.poudreMagique
+		                });
+		
 		ModLoader.addName(burin, "Chisel");
 
 		ModLoader.addRecipe(new ItemStack(burin, 1), new Object[]
 		                {
 		            "  I",
 		            " S ",
-		            "S  ",
+		            "   ",
 		Character.valueOf('S'), Item.stick, Character.valueOf('I'), Item.ingotIron
 		                });
 		
@@ -55,7 +88,7 @@ public class mod_statue extends BaseMod
 
 		ModLoader.addRecipe(new ItemStack(marteau, 1), new Object[]
 		                {
-		            " II",
+		            " I ",
 		            " SI",
 		            "S  ",
 		Character.valueOf('S'), Item.stick, Character.valueOf('I'), Item.ingotIron
@@ -67,8 +100,12 @@ public class mod_statue extends BaseMod
 		                {
 		            Block.planks, Block.stone, Block.cobblestone, 
 		            Block.sand, Item.diamond, Block.wood, 
-		            Item.coal, Item.blazePowder, Block.dirt,
+		            Item.coal, Block.gravel, Block.dirt,
 		                });
+		
+		ModLoader.registerBlock(genStatueGiant);
+		ModLoader.addName(genStatueGiant, "Giant statue generator");
+		
 		slotStandardBlock = ModLoader.addOverride("/gui/items.png", "/dolfinsbizou/slotstandardblock.png");
 		slotDye = ModLoader.addOverride("/gui/items.png", "/dolfinsbizou/slotdye.png");
 		textNull = ModLoader.addOverride("/terrain.png", "/dolfinsbizou/null.png");
@@ -97,6 +134,8 @@ public class mod_statue extends BaseMod
             List list = ((ContainerCreative)container).itemList;
             {
                 list.add(new ItemStack(itemStatue, 1, 0));
+                list.add(new ItemStack(itemShowcase, 1, 0));
+                list.add(new ItemStack(genStatueGiant));
                 list.add(new ItemStack(marteau, 1, 0));
                 list.add(new ItemStack(burin, 1, 0));
                 list.add(new ItemStack(poudreMagique, 1, 0));

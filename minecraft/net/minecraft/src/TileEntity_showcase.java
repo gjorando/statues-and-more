@@ -2,7 +2,7 @@ package net.minecraft.src;
 
 import net.minecraft.client.Minecraft;
 
-public class TileEntity_statue extends TileEntity implements IInventory
+public class TileEntity_showcase extends TileEntity implements IInventory
 {
     private Minecraft mc;
     private ItemStack items[];
@@ -10,15 +10,28 @@ public class TileEntity_statue extends TileEntity implements IInventory
 	private String textField1, textField2;
 	public String skinURL;
 	private String textField3;
+	
+    /** the current angle of the lid (between 0 and 1) */
+    public float lidAngle;
 
-    public TileEntity_statue()
+    /** the angle of the lid last tick */
+    public float prevLidAngle;
+
+    /** server sync counter (once per 20 ticks) */
+    private int ticksSinceSync;
+    
+    /** the number of players currently using this chest */
+    public int numUsingPlayers;
+    
+    public TileEntity_showcase()
     {
     	textField1 = "<player name>";
     	textField2 = "<skin url>";
     	textField3 = "";
     	buttonValue = 0;
+    	numUsingPlayers = 0;
         mc = (ModLoader.getMinecraftInstance());
-        items = new ItemStack[7];
+        items = new ItemStack[1];
     }
 
     public int getSizeInventory()
@@ -87,7 +100,7 @@ public class TileEntity_statue extends TileEntity implements IInventory
 
     public String getInvName()
     {
-        return "Statue";
+        return "Showcase";
     }
 
     public void readFromNBT(NBTTagCompound nbttagcompound)
@@ -106,12 +119,6 @@ public class TileEntity_statue extends TileEntity implements IInventory
                 items[j] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
             }
         }
-        //*
-        buttonValue = nbttagcompound.getInteger("buttonValue");
-        textField1 = nbttagcompound.getString("textField1");
-        textField2 = nbttagcompound.getString("textField2");
-        textField3 = nbttagcompound.getString("textField3");//*/
-
     }
 
     /**
@@ -134,11 +141,6 @@ public class TileEntity_statue extends TileEntity implements IInventory
         }
 
         nbttagcompound.setTag("Items", nbttaglist);
-        //*
-        nbttagcompound.setInteger("buttonValue", buttonValue);
-        nbttagcompound.setString("textField1", textField1);
-        nbttagcompound.setString("textField2", textField2);
-        nbttagcompound.setString("textField3", textField3);//*/
     }
 
     public int getInventoryStackLimit()
@@ -166,144 +168,80 @@ public class TileEntity_statue extends TileEntity implements IInventory
 
     public void openChest()
     {
+        numUsingPlayers++;
+        worldObj.playNoteAt(xCoord, yCoord, zCoord, 1, numUsingPlayers);
     }
 
     public void closeChest()
     {
+        numUsingPlayers--;
+        worldObj.playNoteAt(xCoord, yCoord, zCoord, 1, numUsingPlayers);
     }
     
-    public int getSkin()
+    public void onTileEntityPowered(int par1, int par2)
     {
-		switch(buttonValue)
-		{
-		case 0:
-		default:
-			return mc.renderEngine.getTexture("/dolfinsbizou/massif.png");
-		case 1:
-			return 1;
-		case 2:
-			return mc.renderEngine.getTexture("/mob/char.png");
-		case 3:
-			return mc.renderEngine.getTexture("/mob/zombie.png");
-		case 4:
-			if (getTextField1() != null && getTextField1().length() > 0)
-	        {
-	            skinURL = (new StringBuilder()).append("http://s3.amazonaws.com/MinecraftSkins/").append(getTextField1()).append(".png").toString();
-	        }
-			else
-			{
-				skinURL = "http://www.perdu.com";
-			}
-			return mc.renderEngine.getTextureForDownloadableImage(skinURL, "/dolfinsbizou/noweb.png");
-		case 5:
-			return mc.renderEngine.getTextureForDownloadableImage(getTextField2(), "/dolfinsbizou/noweb.png");
-		case 6:
-			return mc.renderEngine.getTexture("/mob/creeper.png");
-		case 7:
-			return mc.renderEngine.getTexture("/dolfinsbizou/croix.png");
-		case 8:
-			return mc.renderEngine.getTexture("/mob/skeleton.png");
-		case 9:
-			return mc.renderEngine.getTexture("/dolfinsbizou/statue.png");
-		}
+        if (par1 == 1)
+        {
+            numUsingPlayers = par2;
+        }
     }
     
-    public void setButtonValue(int value)
-    {
-    	buttonValue = value;
-    }
-
-	public int getButtonValue()
-	{
-		return buttonValue;
-	}
-
 	public Minecraft getMc()
 	{
 		return mc;
 	}
-
-	public String getTextField1()
-	{
-		return textField1;
-	}
-
-	public void setTextField1(String textField1)
-	{
-		this.textField1 = textField1;
-	}
-
-	public String getSkinURL()
-	{
-		return skinURL;
-	}
 	
-	public String getTextField2()
-	{
-		return textField2;
-	}
+    public void updateEntity()
+    {
+        super.updateEntity();
 
-	public void setTextField2(String textField2)
-	{
-		this.textField2 = textField2;
-	}
-    
-	public String getTextField3()
-	{
-		return textField3;
-	}
+        if ((++ticksSinceSync % 20) * 4 == 0)
+        {
+            worldObj.playNoteAt(xCoord, yCoord, zCoord, 1, numUsingPlayers);
+        }
 
-	public void setTextField3(String textField3)
-	{
-		this.textField3 = textField3;
-	}
-	
-	public int getTextColor()
-	{
-		ItemStack stack = this.getStackInSlot(5);
-		if(stack != null)
-		{
-			int i = MathHelper.clamp_int(stack.getItemDamage(), 0, 15);
-			switch(i)
-			{
-			case 0: //inksac
-			default:
-				return 0x151010;
-			case 1: //rose red
-				return 0x902D2F;
-			case 2: //catus green
-				return 0x30411E;
-			case 3: //cocoa beans
-				return 0x4B2E1F;
-			case 4: //lapis lazuli
-				return 0x2E3882;
-			case 5: //purple dye
-				return 0x7838A3;
-			case 6: //cyan dye
-				return 0x2E758D;
-			case 7: //light grey dye
-				return 0x929292;
-			case 8: //grey dye
-				return 0x3B3B3B;
-			case 9: //pink dye
-				return 0xCE778F;
-			case 10: //lime green dye
-				return 0x38B94E;
-			case 11: //dandelion yellow
-				return 0xCEC14C;
-			case 12: //light blue dye
-				return 0x7291C8;
-			case 13: //magenta dye
-				return 0xAE41AE;
-			case 14: //orange dye
-				return 0xDB733E;
-			case 15: //bone meal
-				return 0xFBFBFB;
-			}
-		}
-		else
-		{
-			return 0x000000;
-		}
-	}
+        prevLidAngle = lidAngle;
+        float f = 0.1F;
+
+        if(numUsingPlayers > 0 && lidAngle == 0F)
+        {
+        	double d = (double)xCoord + 0.5D;
+            double d1 = (double)zCoord + 0.5D;
+
+            worldObj.playSoundEffect(d, (double)yCoord + 0.5D, d1, "random.chestopen", 0.5F, worldObj.rand.nextFloat() * 0.1F + 0.9F);
+        }
+        
+        if((numUsingPlayers == 0 && lidAngle > 0F) || (numUsingPlayers > 0 && lidAngle < 1F))
+        {
+        	float f1 = lidAngle;
+        	
+        	if (numUsingPlayers > 0)
+        	{
+        		lidAngle += f;
+        	}
+        	else
+        	{
+        		lidAngle -= f;
+        	}
+        	
+        	if(lidAngle > 1F)
+        	{
+        		lidAngle = 1F;
+        	}
+        	if(lidAngle < 0F)
+        	{
+        		lidAngle = 0F;
+        	}
+        	
+        	float f2 = 0.5F;
+
+            if (lidAngle < f2 && f1 >= f2)
+            {
+                double d2 = (double)xCoord + 0.5D;
+                double d3 = (double)zCoord + 0.5D;
+
+                worldObj.playSoundEffect(d2, (double)yCoord + 0.5D, d3, "random.chestclosed", 0.5F, worldObj.rand.nextFloat() * 0.1F + 0.9F);
+            }
+        }
+    }
 }

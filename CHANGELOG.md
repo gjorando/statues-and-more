@@ -1,5 +1,23 @@
 # Changelog
 
+## v3r1
+
+* +Added a new block: the showcase, a windowed stand in which you can put your favorite block/item (useful for show)
+* +Added a new apparence for the statue, but not (yet) the enderman. Be patients guys!
+* +Added the draft of a new awesome block: It will generates a giant statue (1pixel = 1 block IG) based on the skin of a player. Actually, it generates only a clay made statue, textures are temporary and the orientation doesn't work. The craft isn't done yet, but you can try it in creative mode.
+* Fixed an orientation bug with arrows, hoes and axes
+* Statues are now stackable
+* Hammer and chisel are no more stackables
+* Started to fix HD texture pack display bugs, but it doesn"t work yet
+* Fixed a crash bug when the player is in creative and he tries to open the sculpt GUI without possessing a chisel
+* Started to implement the .cfg file to modify IDs of blocks and items, but it doesn't generates itself automatically yet, so don't use it
+* Fixed a bug which rendered the texture only on external faces of the models. What does mean? Skeleton hasn't no more a "hole", and armors are prettier, mainly with the cross
+* Changed the craft of mysterious powder: replaced blaze powder with a gravel (so no more need going in the nether to craft a f\*\*king statue ^^)
+* Fixed the "bending bow bug: when the player bended his bow and the statue had a bow too, the bow of the statue got bended too
+* Fixed some others little bugs
+* -removed a stick from the chisel craft
+* -removed an iron ingot from the hammer craft
+
 ## v3r
 
 * +Asked for a long time by many people, the slot to add an item held by the statue has been implemented

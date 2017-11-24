@@ -33,6 +33,7 @@ public class SlotStandardBlock extends Slot
         {
             return true;
         }
+        else
         {
         	return false;
         	

@@ -7,6 +7,7 @@ public class ItemBurin extends Item
 	{
 		super(par1);
 		setMaxDamage(19);
+		maxStackSize = 1;
 	}
 	
 	public boolean isFull3D()

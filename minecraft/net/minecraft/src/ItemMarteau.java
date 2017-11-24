@@ -6,6 +6,7 @@ public class ItemMarteau extends Item
 	protected ItemMarteau(int par1)
 	{
 		super(par1);
+		maxStackSize = 1;
 	}
 	
 	public boolean isFull3D()

@@ -1,8 +1,8 @@
 package net.minecraft.src;
 
-public class ItemStatue extends ItemReed
+public class ItemShowcase extends ItemReed
 {
-	public ItemStatue(int par1, Block par2Block)
+	public ItemShowcase(int par1, Block par2Block)
 	{
 		super(par1, par2Block);
 		setHasSubtypes(true);

@@ -121,7 +121,7 @@ public class Statue extends BlockContainer
        boolean hammerHeld = isAHammer(itemstack);
        if (hammerHeld && (entityplayer.inventory.hasItem(mod_statue.burin.shiftedIndex) || entityplayer.capabilities.isCreativeMode))
        {
-    	   if(entityplayer.inventory.hasItem(mod_statue.burin.shiftedIndex) == false)
+    	   if(entityplayer.inventory.hasItem(mod_statue.burin.shiftedIndex) == true)
     	   {
 	    	   for (int i = 0; i < 36; i++)
 	           {
@@ -165,7 +165,7 @@ public class Statue extends BlockContainer
 
 public boolean canPlaceBlockAt(World world, int i, int j, int k)
    {
-	   if (world.getBlockId(i, j+1, k) == 0 && world.getBlockId(i, j+2, k) == 0 && world.getBlockId(i, j-1, k) != 0)
+	   if (world.getBlockId(i, j+1, k) == 0 && world.getBlockId(i, j-1, k) != 0)
 	   {
 		   return true;
 	   }
