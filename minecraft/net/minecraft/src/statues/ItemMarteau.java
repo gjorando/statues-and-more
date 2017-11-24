@@ -12,7 +12,7 @@ public class ItemMarteau extends Item
 	{
 		super(par1);
 		maxStackSize = 1;
-		this.setTabToDisplayOn(CreativeTabs.tabTools);
+		this.setCreativeTab(CreativeTabs.tabTools);
 	}
 	
 	/**

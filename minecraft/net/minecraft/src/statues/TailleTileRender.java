@@ -2,12 +2,15 @@ package net.minecraft.src.statues;
 
 import net.minecraft.src.*;
 
+import java.awt.image.BufferedImage;
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map.Entry;
+import java.util.Properties;
 
 import javax.imageio.ImageIO;
 
@@ -15,10 +18,10 @@ import net.minecraft.client.Minecraft;
 
 public final class TailleTileRender
 {
-    public static int int_size;
+	public static int int_size;
     public static int int_sizeMinus1;
     public static int int_sizeHalf;
-    public static int int_glBufferSize = 0x10000;
+    public static int int_glBufferSize = 65536;
     public static int int_numPixels;
     public static int int_numBytes;
     public static int int_numPixelsMinus1;
@@ -41,64 +44,57 @@ public final class TailleTileRender
     public static double double_sizeMinus1;
     public static double double_compassCenterMin;
     public static double double_compassCenterMax;
-    private static HashMap expectedColumns;
-
+    private static boolean debug = false;
+    private static boolean enableResizing = true;
+    private static final HashMap expectedColumns = new HashMap();
+    private static TexturePackImplementation texturePack;
+    
     public TailleTileRender()
     {
     }
 
     public static boolean setTileSize()
     {
-        debug("\nchanging skin to %s", new Object[]
-                {
-                    getTexturePackName(getSelectedTexturePack())
-                });
-        int i = getTileSize();
+        int var0 = getTileSize();
 
-        if (i == int_size)
+        if (var0 == TailleTileRender.int_size)
         {
-            debug("tile size %d unchanged", new Object[]
-                    {
-                        Integer.valueOf(i)
-                    });
+            debug("tile size %d unchanged", new Object[] {Integer.valueOf(var0)});
             return false;
         }
         else
         {
-            debug("setting tile size to %d (was %d)", new Object[]
-                    {
-                        Integer.valueOf(i), Integer.valueOf(int_size)
-                    });
-            setTileSize(i);
+            debug("setting tile size to %d (was %d)", new Object[] {Integer.valueOf(var0), Integer.valueOf(TailleTileRender.int_size)});
+            TailleTileRender.setTileSize(var0);
             return true;
         }
     }
     
-    public static void setTileSize(int i)
+    public static void setTileSize(int var0)
     {
-        int_size = i;
-        int_sizeMinus1 = i - 1;
-        int_sizeHalf = i / 2;
-        int_glBufferSize = Math.max(int_glBufferSize, 1024 * i * i);
-        int_numPixels = i * i;
+        int_size = var0;
+        int_sizeMinus1 = var0 - 1;
+        int_sizeHalf = var0 / 2;
+        int_glBufferSize = Math.max(int_glBufferSize, 1024 * var0 * var0);
+        int_numPixels = var0 * var0;
         int_numBytes = 4 * int_numPixels;
         int_numPixelsMinus1 = int_numPixels - 1;
-        int_compassNeedleMin = i / -2;
-        int_compassNeedleMax = i;
-        int_compassCrossMin = i / -4;
-        int_compassCrossMax = i / 4;
-        int_flameHeight = i + 4;
+        int_compassNeedleMin = var0 / -2;
+        int_compassNeedleMax = var0;
+        int_compassCrossMin = var0 / -4;
+        int_compassCrossMax = var0 / 4;
+        int_flameHeight = var0 + 4;
         int_flameHeightMinus1 = int_flameHeight - 1;
-        int_flameArraySize = i * int_flameHeight;
-        float_size = int_size;
+        int_flameArraySize = var0 * int_flameHeight;
+        float_size = (float)int_size;
         float_sizeMinus1 = float_size - 1.0F;
         float_sizeMinus0_01 = float_size - 0.01F;
         float_sizeHalf = float_size / 2.0F;
-        float_size16 = float_size * 16F;
+        float_size16 = float_size * 16.0F;
         float_reciprocal = 1.0F / float_size;
         float_texNudge = 1.0F / (float_size * float_size * 2.0F);
 
-        if (i < 64)
+        if (var0 < 64)
         {
             float_flameNudge = 1.0F + 0.96F / float_size;
         }
@@ -107,159 +103,151 @@ public final class TailleTileRender
             float_flameNudge = 1.0F + 1.28F / float_size;
         }
 
-        double_size = int_size;
+        double_size = (double)int_size;
         double_sizeMinus1 = double_size - 1.0D;
-        double_compassCenterMin = double_size / 2D - 0.5D;
-        double_compassCenterMax = double_size / 2D + 0.5D;
+        double_compassCenterMin = double_size / 2.0D - 0.5D;
+        double_compassCenterMax = double_size / 2.0D + 0.5D;
     }
 
-    public static TexturePackImplementation getSelectedTexturePack()
+    private static int getTileSize()
     {
-        Minecraft var0 = ModLoader.getMinecraftInstance();
-        return (TexturePackImplementation) (var0 == null ? null : (var0.texturePackList == null ? null : var0.texturePackList.getSelectedTexturePack()));
+        int var0 = 0;
+        enableResizing = false;
+        Iterator var1 = expectedColumns.entrySet().iterator();
+
+        while (var1.hasNext())
+        {
+            Entry var2 = (Entry)var1.next();
+            BufferedImage var3 = getImage((String)var2.getKey());
+
+            if (var3 != null)
+            {
+                int var4 = var3.getWidth() / ((Integer)var2.getValue()).intValue();
+                debug("  %s tile size is %d", new Object[] {var2.getKey(), Integer.valueOf(var4)});
+                var0 = Math.max(var0, var4);
+            }
+        }
+
+        enableResizing = true;
+        return var0 > 0 ? var0 : 16;
     }
     
-    public static int getTileSize(TexturePackBase texturepackbase)
+    public static BufferedImage getImage(String var0)
     {
-        int i = 0;
-        Iterator iterator = expectedColumns.entrySet().iterator();
+        return getImageImpl(var0);
+    }
+    
+    protected static BufferedImage getImageImpl(String var1)
+    {
+        InputStream var2 = getInputStream(var1);
+        BufferedImage var3 = null;
 
-        do
+        if (var2 != null)
         {
-            if (!iterator.hasNext())
-            {
-                break;
-            }
-
-            java.util.Map.Entry entry = (java.util.Map.Entry)iterator.next();
-            InputStream inputstream = null;
-
             try
             {
-                try
-                {
-                    inputstream = getResourceAsStream(texturepackbase, (String)entry.getKey());
-
-                    if (inputstream != null)
-                    {
-                        java.awt.image.BufferedImage bufferedimage = ImageIO.read(inputstream);
-                        int j = bufferedimage.getWidth() / ((Integer)entry.getValue()).intValue();
-                        debug("  %s tile size is %d", new Object[]
-                                {
-                                    entry.getKey(), Integer.valueOf(j)
-                                });
-                        i = Math.max(i, j);
-                    }
-                }
-                catch (Exception exception)
-                {
-                    exception.printStackTrace();
-                }
-
-                continue;
+                var3 = ImageIO.read(var2);
+            }
+            catch (IOException var8)
+            {
+                error("could not read %s", new Object[] {var1});
+                var8.printStackTrace();
             }
             finally
             {
-                close(inputstream);
+                close((Closeable)var2);
             }
         }
-        while (true);
 
-        return i <= 0 ? 16 : i;
+        return var3;
     }
     
-    public static String getTexturePackName(TexturePackImplementation var0)
+    protected static InputStream getInputStreamImpl(String var1)
     {
-        return var0 == null ? "Default" : var0.func_77536_b();
-    }
-    
-    public static void debug(String s, Object aobj[])
-    {
-    	boolean debug = true;
-        if (debug)
+        if (texturePack == null)
         {
-            System.out.printf((new StringBuilder()).append(s).append("\n").toString(), aobj);
+            TexturePackImplementation var2 = getCurrentTexturePack();
+            return var2 == null ? TailleTileRender.class.getResourceAsStream(var1) : var2.getResourceAsStream(var1);
+        }
+        else
+        {
+            return texturePack.getResourceAsStream(var1);
         }
     }
     
-    public static void close(Closeable closeable)
+    public static InputStream getInputStream(String var0)
     {
-        if (closeable != null)
+        return getInputStreamImpl(var0);
+    }
+    
+    static TexturePackImplementation getCurrentTexturePack()
+    {
+        Minecraft var0 = ModLoader.getMinecraftInstance();
+
+        if (var0 == null)
+        {
+            return null;
+        }
+        else
+        {
+            TexturePackList var1 = var0.texturePackList;
+            return (TexturePackImplementation) (var1 == null ? null : var1.getSelectedTexturePack());
+        }
+    }
+    
+    private static void dump()
+    {
+        Field[] var0 = TailleTileRender.class.getDeclaredFields();
+        int var1 = var0.length;
+
+        for (int var2 = 0; var2 < var1; ++var2)
+        {
+            Field var3 = var0[var2];
+
+            if (var3.getName().contains("_"))
+            {
+                try
+                {
+                    debug("%s = %s", new Object[] {var3.getName(), var3.get((Object)null)});
+                }
+                catch (Exception var5)
+                {
+                    debug("%s: %s", new Object[] {var3.getName(), var5.toString()});
+                }
+            }
+        }
+    }
+    
+    public static void error(String var0, Object ... var1)
+    {
+        System.out.printf("ERROR: " + var0 + "\n", var1);
+    }
+    
+    public static void close(Closeable var0)
+    {
+        if (var0 != null)
         {
             try
             {
-                closeable.close();
+                var0.close();
             }
-            catch (IOException ioexception)
+            catch (IOException var2)
             {
-                ioexception.printStackTrace();
+                var2.printStackTrace();
             }
+        }
+    }
+    
+    public static void debug(String var0, Object ... var1)
+    {
+        if (debug)
+        {
+            System.out.printf(var0 + "\n", var1);
         }
     }
     
     static
     {
-        expectedColumns = new HashMap();
-        expectedColumns.put("/terrain.png", Integer.valueOf(16));
-        expectedColumns.put("/gui/items.png", Integer.valueOf(16));
-        expectedColumns.put("/misc/dial.png", Integer.valueOf(1));
-    }
-    
-    public static int getTileSize()
-    {
-        return getTileSize(getSelectedTexturePack());
-    }
-    
-    public static InputStream getResourceAsStream(TexturePackBase texturepackbase, String s)
-    {
-        InputStream inputstream = null;
-
-        if (texturepackbase != null)
-        {
-            try
-            {
-                inputstream = texturepackbase.getResourceAsStream(s);
-            }
-            catch (Exception exception)
-            {
-                exception.printStackTrace();
-            }
-        }
-
-        if (inputstream == null)
-        {
-            inputstream = getResourceAsStream(s);
-        }
-
-        if (inputstream == null && s.startsWith("/anim/custom_"))
-        {
-            inputstream = getResourceAsStream(texturepackbase, s.substring(5));
-        }
-
-        if (inputstream == null && isRequiredResource(s))
-        {
-            inputstream = Thread.currentThread().getContextClassLoader().getResourceAsStream(s);
-            warn("falling back on thread class loader for %s: %s", new Object[]
-                    {
-                        s, inputstream != null ? "success" : "failed"
-                    });
-        }
-
-        return inputstream;
-    }
-    
-    public static InputStream getResourceAsStream(String s)
-    {
-        return getResourceAsStream(getSelectedTexturePack(), s);
-    }
-    
-    public static boolean isRequiredResource(String s)
-    {
-        return !s.startsWith("/custom_") && !s.startsWith("/anim/custom_") && !s.equals("/terrain_nh.png") && !s.equals("/terrain_s.png") && !s.matches("^/font/.*\\.properties$") && !s.matches("^/mob/.*\\d+.png$");
-    }
-    
-    public static void warn(String s, Object aobj[])
-    {
-        System.out.printf((new StringBuilder()).append("WARNING: ").append(s).append("\n").toString(), aobj);
+        setTileSize(16);
     }
 }

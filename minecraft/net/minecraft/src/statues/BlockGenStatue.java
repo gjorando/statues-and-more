@@ -12,7 +12,7 @@ public class BlockGenStatue extends Block
 	public BlockGenStatue(int par1, int par2)
 	{
 		super(par1, par2, Material.rock);
-		this.setCreativeTab(CreativeTabs.tabDeco);
+		this.setCreativeTab(CreativeTabs.tabDecorations);
 	}
 	
 	/**

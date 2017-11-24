@@ -71,6 +71,9 @@ public class ModelShowcase extends ModelBase
     	setRotation(cradle, 0.3548836F, 0F, 0F);
     }
     
+    /**
+	 * Render a static model as defined in the constructor
+	 */
     public void renderModel (float f)
     {
     	Shape1.render(f);
@@ -82,10 +85,13 @@ public class ModelShowcase extends ModelBase
     	cradle.render(f);
     }
     
+    /**
+	 * Sets the models various rotation angles then renders the model.
+	 */
     public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
     {
     	super.render(entity, f, f1, f2, f3, f4, f5);
-    	setRotationAngles(f, f1, f2, f3, f4, f5);
+    	setRotationAngles(f, f1, f2, f3, f4, f5, entity);
     	Shape1.render(f5);
     	Shape2.render(f5);
     	Shape3.render(f5);
@@ -95,16 +101,13 @@ public class ModelShowcase extends ModelBase
     	cradle.render(f5);
     }
     
+    /**
+	 * Sets the model rotation.
+	 */
     private void setRotation(ModelRenderer model, float x, float y, float z)
     {
     	model.rotateAngleX = x;
     	model.rotateAngleY = y;
     	model.rotateAngleZ = z;
-    }	
-    
-    public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5)
-    {
-    	super.setRotationAngles(f, f1, f2, f3, f4, f5);
-    }	
-    
+    }	    
 }

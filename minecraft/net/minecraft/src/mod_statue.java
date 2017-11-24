@@ -20,10 +20,10 @@ public class mod_statue extends BaseMod
 	/*
 	 * blocks IDs
 	 */
-	public static int statueID = 140;
-	public static int showcaseID = 141;
-	public static int stuffedMobID = 142;
-	public static int hugeID = 143;
+	public static int statueID = 150;
+	public static int showcaseID = 151;
+	public static int stuffedMobID = 152;
+	public static int hugeID = 153;
 	
 	/*
 	 * items IDs
@@ -158,17 +158,6 @@ public class mod_statue extends BaseMod
 			Block.sand, Item.diamond, Block.wood, 
 			Item.coal, Block.gravel, Block.dirt
 		});
-		
-		ModLoader.addRecipe(new ItemStack(genStatueGiant, 1), new Object[]
-				{
-					"GGG",
-					"WPW",
-					"S S",
-					Character.valueOf('S'), Item.stick,
-					Character.valueOf('W'), Block.wood,
-					Character.valueOf('P'), mod_statue.poudreMagique,
-					Character.valueOf('G'), Block.thinGlass
-				});
 		
 		ModLoader.addRecipe(new ItemStack(itemStatue, 1), new Object[]
 				{

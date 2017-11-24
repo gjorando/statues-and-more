@@ -11,7 +11,7 @@ public class ItemMagicPowder extends Item
 	public ItemMagicPowder(int par1)
 	{
 		super(par1);
-		this.setTabToDisplayOn(CreativeTabs.tabMaterials);
+		this.setCreativeTab(CreativeTabs.tabMaterials);
 	}
 	
 	/**

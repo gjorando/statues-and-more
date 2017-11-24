@@ -28,9 +28,7 @@ public class RenderShowcase extends TileEntitySpecialRenderer
 	public void renderAModelAt(TileEntityShowcase  tileentity1, double d, double d1, double d2, float f)
 	{   
 		int i = 0;
-		
-		mod_statue.showcase.setBlockBounds(0F, 0F, 0F, 1F, 1.5F, 1F);
-		
+				
 		Block block = tileentity1.getBlockType();
 		
 		/*

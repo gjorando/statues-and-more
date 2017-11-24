@@ -14,7 +14,7 @@ public class ItemStatue extends ItemReed
 		setHasSubtypes(true);
 		setMaxDamage(0);
 		maxStackSize = 64;
-		this.setTabToDisplayOn(CreativeTabs.tabDeco);
+		this.setCreativeTab(CreativeTabs.tabDecorations);
 	}	
 	
 	/**

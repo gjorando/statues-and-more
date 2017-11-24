@@ -1,5 +1,9 @@
 # Changelog
 
+## v4pre-alpha2 (for MV 1.4.2)
+
+* A lot of techical changes to (try to) get it to work with the newer Minecraft version
+
 ## v4pre-alpha1 (for MC 1.3.2)
 
 -Temporary removed the non-finished .cfg file

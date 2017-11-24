@@ -13,7 +13,7 @@ public class ItemBurin extends Item
 		super(par1);
 		setMaxDamage(19); //sets max item uses - 1
 		maxStackSize = 1;
-		this.setTabToDisplayOn(CreativeTabs.tabTools);
+		this.setCreativeTab(CreativeTabs.tabTools);
 	}
 	
 	/**
