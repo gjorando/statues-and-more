@@ -1,6 +1,6 @@
 # Changelog
 
-## v4pre-alpha2 (for MV 1.4.2)
+## v4pre-alpha2 (for MC 1.4.2)
 
 * A lot of techical changes to (try to) get it to work with the newer Minecraft version
 
